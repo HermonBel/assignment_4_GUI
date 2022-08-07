@@ -28,8 +28,8 @@ namespace WindowsFormsApp1
             string password = txtPassword.Text; 
             if (username == "admin" && password == "admin")
             {
-                Form1 home = new Form1(username, this);
-                home.Show();
+                maincontainer mainc = new maincontainer();
+                mainc.Show();
                 Hide();
             }
             else
@@ -39,6 +39,11 @@ namespace WindowsFormsApp1
                 txtPassword.Clear();
 
             }
+        }
+
+        private void lblUsername_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
