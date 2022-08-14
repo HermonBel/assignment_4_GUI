@@ -13,43 +13,69 @@ namespace WindowsFormsApp1
 {
     public partial class Form1 : Form
     {
+        Login_Page loginPage = new Login_Page();
+        Class1 Class1 = new Class1();
         public Form1()
         {
             InitializeComponent();
+            /*lblUsername.Text = username;
+            loginPage = login_Page;*/
         }
 
         private void btn_add_Click(object sender, EventArgs e)
         {
-            Regex r = new Regex(@"^[0-9]{4}");
-            Class1 cls = new Class1();
+            try
+            {
+                Class1.number = int.Parse(txt_number.Text);
+                Class1.dates = date_picker_date.Text;
+                Class1.inventoryNumber = int.Parse(txt_inventory.Text);
+                Class1.item = txt_item.Text;
+                Class1.quantity = int.Parse(txt_quantity.Text);
+                Class1.price = Double.Parse(txt_price.Text);
+                Class1.option = chkBox.Text;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error " + ex.Message);
+            }
+            Regex r = new Regex(@"^[0-9]");
             if (string.IsNullOrEmpty(txt_number.Text))
             {
                 errorProvider1.SetError(txt_number, "This field can not be empty");
             }
             else
+            {
+                errorProvider1.Clear();
+                Class1.number = int.Parse(txt_number.Text);
+            }
+            if (r.IsMatch(txt_inventory.Text))
             { 
                 errorProvider1.Clear();
-                cls.number = int.Parse(txt_number.Text);
+                Class1.save();
+                dataGridView1.DataSource = null;
+                dataGridView1.DataSource = Class1.getAllProducts();
             }
-            if (!(r.IsMatch(txt_inventory.Text)))
-                MessageBox.Show("Entry of inventory number must not excced 9999");
             else
-                cls.inventoryNumber = int.Parse(txt_inventory.Text);
-                
-            cls.dates = date_picker_date.Text;
-            cls.item = txt_item.Text;
+                MessageBox.Show("Entry of inventory number must not excced 9999");
+            String items = " ";
+            foreach (var itemList in chkBox.CheckedItems)
+            {
+                items += itemList.ToString();
+            }
+            MessageBox.Show(items);
+            
             try
             {
-                cls.quantity = int.Parse(txt_quantity.Text);
+                Class1.quantity = int.Parse(txt_quantity.Text);
             }
             catch(Exception exp)
             {
                 MessageBox.Show("ERROR IN QUANTITY!");
             }
-            cls.price = double.Parse(txt_price.Text);
-            cls.save();
-            dataGridView1.DataSource = null;
-            dataGridView1.DataSource = Class1.getAllProducts();
+            Class1.dates = date_picker_date.Text;
+            Class1.item = txt_item.Text;
+            Class1.price = double.Parse(txt_price.Text);
+            Class1.save();
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -74,6 +100,32 @@ namespace WindowsFormsApp1
         private void txt_number_TextChanged(object sender, EventArgs e)
         {
             
+        }
+
+        private void chkListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+   
+        }
+
+        private void btn_Logout_Click(object sender, EventArgs e)
+        {
+            loginPage.Show();
+            this.Close();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string name = txtSearch.Text;
+            var product = Class1.findProducts(name);
+            if (product != null)
+            {
+                MessageBox.Show("product not found");
+            }
+            else
+            {
+                MessageBox.Show("product found");
+            }
         }
     }
 }
