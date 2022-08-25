@@ -56,6 +56,11 @@ namespace WindowsFormsApp1
 
         }
 
+        private void lblDescription_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void lblPrice_Click(object sender, EventArgs e)
         {
 

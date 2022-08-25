@@ -118,13 +118,24 @@ namespace WindowsFormsApp1
         {
             string name = txtSearch.Text;
             var product = Class1.findProducts(name);
-            if (product != null)
+            if (product == null)
             {
                 MessageBox.Show("product not found");
             }
             else
             {
                 MessageBox.Show("product found");
+                txt_item.Text = Class1.item;
+                txt_number.Text = Class1.number.ToString();
+                txt_inventory.Text = Class1.inventoryNumber.ToString();
+                txt_quantity.Text = Class1.quantity.ToString();
+                txt_price.Text = Class1.price.ToString();
+                string names = Class1.item;
+                int invNum = Class1.number;
+                double price = Class1.price;
+                double quantity = Class1.quantity;
+                Form4 display = new Form4(names, invNum, price, quantity);
+                display.Show();
             }
         }
     }

@@ -66,5 +66,9 @@ namespace WindowsFormsApp1
             panel3.Top = 244;
         }
 
+        private void productCard1_Load_1(object sender, EventArgs e)
+        {
+
+        }
     }
 }

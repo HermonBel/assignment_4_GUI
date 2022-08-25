@@ -94,6 +94,7 @@
             this.productCard1.Name = "productCard1";
             this.productCard1.Price = 0D;
             this.productCard1.Title = "Title";
+            this.productCard1.Load += new System.EventHandler(this.productCard1_Load_1);
             // 
             // Form3
             // 
